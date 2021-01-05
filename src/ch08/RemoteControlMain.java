@@ -64,6 +64,48 @@ public class RemoteControlMain {
 		rcc.setMute(false);
 		rcc.setVolume(8);
 		rcc.turnOff();
+		
+		System.out.println("\n----- 익명 구현 객체 사용 -----\n");
+		
+//		익명 구현 객체 사용
+//		익명 구현 객체도 클래스임, 클래스가 가지는 모든 멤버를 그대로 가질 수 있음
+//		익명이기 때문에 상속이 안됨, 인터페이스로부터 상속받은 모든 추상메서드를 필수로 구현해야함
+		RemoteControl rc1 = new RemoteControl() {
+			private int volume; // 클래스의 멤버 변수
+			
+			@Override
+			public void turnOn() {
+				System.out.println("전원이 켜집니다.");
+			}
+			
+			@Override
+			public void turnOff() {
+				System.out.println("전원이 꺼집니다.");
+			}
+			
+			@Override
+			public void setVolume(int volume) {
+				if (volume > RemoteControl.MAX_VOLUME) {
+					this.volume = RemoteControl.MAX_VOLUME;
+				}
+				else if (volume < RemoteControl.MIN_VOLUME) {
+					this.volume = RemoteControl.MIN_VOLUME;
+				}
+				else {
+					this.volume = volume;
+				}
+				
+				System.out.println("현재 볼륨은 " + this.volume);
+			}
+		};
+		
+//		사용 방법은 동일함
+		rc1.turnOn();
+		rc1.setVolume(10);
+		rc1.setMute(true);
+		rc1.turnOff();
+		
+		
 	}
 
 }
